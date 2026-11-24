@@ -1,0 +1,16 @@
+{
+  "case_id": "DEMO-NOT-A-REAL-CASE",
+  "note": "以下为演示接口的虚构示例，非官方测试案例，不构成正式答案。",
+  "task": "为稿件插入引用，重排编号，合并重复文献条目，并按 GB/T 7714-2015 整理文末列表",
+  "params": {
+    "cite_style": "numeric",
+    "target_spec": "GB/T 7714-2015",
+    "language": "zh",
+    "allow_online_verification": false
+  },
+  "materials": {
+    "manuscript": "manuscript.md",
+    "library": ["refs.bib", "refs_cnki.txt"],
+    "constraints": ["不得编造条目与 DOI", "预印本与正式版默认保留正式版"]
+  }
+}
