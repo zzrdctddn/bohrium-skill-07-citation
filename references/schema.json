@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "citation-consistency-manager result.json",
+  "type": "object",
+  "required": [
+    "case_id",
+    "status",
+    "artifact",
+    "self_check"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": ["success", "partial", "blocked"]
+    },
+    "note": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["manuscript", "reference_list"],
+      "properties": {
+        "manuscript": { "type": "string" },
+        "reference_list": { "type": "string" },
+        "citation_style": { "enum": ["numeric", "author-year", "footnote"] },
+        "target_spec": { "type": "string" }
+      }
+    },
+    "citation_placement_ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "sentence_loc", "needs_source", "status"],
+        "properties": {
+          "claim_id": { "type": "string" },
+          "sentence_loc": { "type": "string" },
+          "claim_text": { "type": "string" },
+          "needs_source": { "type": "boolean" },
+          "position": { "type": "string" },
+          "form": { "type": "string" },
+          "sources": { "type": "array", "items": { "type": "string" } },
+          "status": { "enum": ["placed", "needs_source"] }
+        }
+      }
+    },
+    "renumber_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["old", "new", "reason"],
+        "properties": {
+          "old": { "type": "string" },
+          "new": { "type": "string" },
+          "scope": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "dedup_decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["group_id", "members", "action"],
+        "properties": {
+          "group_id": { "type": "string" },
+          "members": { "type": "array", "items": { "type": "string" } },
+          "merge_key": { "type": "string" },
+          "criteria": { "type": "string" },
+          "merge_rationale": { "type": "string" },
+          "action": { "enum": ["merged", "candidate", "kept_separate"] }
+        }
+      }
+    },
+    "source_verification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "entry_key", "exists", "status"],
+        "properties": {
+          "claim_id": { "type": "string" },
+          "entry_key": { "type": "string" },
+          "exists": { "enum": ["yes", "no", "unknown"] },
+          "metadata_accuracy": { "enum": ["match", "mismatch"] },
+          "claim_match": { "enum": ["match", "partial", "mismatch"] },
+          "basis": { "type": "string" },
+          "status": { "enum": ["verified", "unverified"] }
+        }
+      }
+    },
+    "format_conversion_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entry_key", "from", "to"],
+        "properties": {
+          "entry_key": { "type": "string" },
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "fields_preserved": { "type": "array", "items": { "type": "string" } },
+          "fields_missing": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "fact_source_map": { "type": "array" },
+    "uncertainties": { "type": "array", "items": { "type": "string" } },
+    "human_review_items": { "type": "array", "items": { "type": "string" } },
+    "change_log": { "type": "array" },
+    "self_check": {
+      "type": "object",
+      "required": ["placement_correct", "numbering_synced", "dedup_clean", "sources_verified", "no_fabrication"],
+      "properties": {
+        "placement_correct": { "type": "boolean" },
+        "numbering_synced": { "type": "boolean" },
+        "dedup_clean": { "type": "boolean" },
+        "sources_verified": { "type": "boolean" },
+        "no_fabrication": { "type": "boolean" }
+      }
+    }
+  }
+}
