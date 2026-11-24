@@ -1,0 +1,82 @@
+{
+  "case_id": "DEMO-NOT-A-REAL-CASE",
+  "status": "success",
+  "note": "示意输出，非真实案例结果；所有条目与数值均为占位，不代表任何真实文献。",
+  "artifact": {
+    "manuscript": "……（示意文本）已有方法在动态拓扑下依赖固定图结构 [1]……文献 [2] 报告某数值（须原文支持，否则标 insufficient_evidence）……",
+    "reference_list": "[1] 作者A, 作者B. 题名[J]. 期刊名, 2021, 12(3): 45-52.\n[2] Author C, Author D. Title in English[J]. Journal Name, 2020, 8(2): 100-110. DOI: 10.1000/xxxxx.",
+    "citation_style": "numeric",
+    "target_spec": "GB/T 7714-2015"
+  },
+  "citation_placement_ledger": [
+    {
+      "claim_id": "C1",
+      "sentence_loc": "§2 p1 s1",
+      "claim_text": "已有方法依赖固定图结构",
+      "needs_source": true,
+      "position": "句末",
+      "form": "numeric",
+      "sources": ["REF-1"],
+      "status": "placed"
+    },
+    {
+      "claim_id": "C2",
+      "sentence_loc": "§2 p1 s3",
+      "claim_text": "某具体准确率数值",
+      "needs_source": true,
+      "position": "句末",
+      "form": "numeric",
+      "sources": ["REF-2"],
+      "status": "needs_source"
+    }
+  ],
+  "renumber_map": [
+    {"old": "[5]", "new": "[2]", "scope": "正文+文末+图注", "reason": "去重合并后顺延"}
+  ],
+  "dedup_decisions": [
+    {
+      "group_id": "G1",
+      "members": ["REF-4", "REF-9"],
+      "merge_key": "10.1000/xxxxx",
+      "criteria": "L2 规范化题名+首作者+年份一致",
+      "merge_rationale": "中英文题名差异，DOI 一致，合并为一条",
+      "action": "merged"
+    }
+  ],
+  "source_verification": [
+    {
+      "claim_id": "C1",
+      "entry_key": "REF-1",
+      "exists": "unknown",
+      "metadata_accuracy": "match",
+      "claim_match": "match",
+      "basis": "材料内 bib 条目比对；未联网核验",
+      "status": "unverified"
+    }
+  ],
+  "format_conversion_log": [
+    {
+      "entry_key": "REF-1",
+      "from": "BibTeX",
+      "to": "GB/T 7714-2015",
+      "fields_preserved": ["DOI", "卷期页", "文献类型"],
+      "fields_missing": []
+    }
+  ],
+  "fact_source_map": [
+    {"item": "REF-1 卷期页", "value": "12(3):45-52", "source_location": "input refs/refs.bib"}
+  ],
+  "uncertainties": ["未允许联网，条目真实性标 unverified，需人工按 DOI 复核"],
+  "human_review_items": ["C2 的准确率数值须由 REF-2 原文确认，否则删除数值或改中性表述"],
+  "change_log": [
+    {"step": 4, "action": "合并 REF-4 与 REF-9", "reason": "题名与 DOI 一致，按 L2 合并"},
+    {"step": 3, "action": "重排编号并同步三处", "reason": "合并后编号顺延"}
+  ],
+  "self_check": {
+    "placement_correct": true,
+    "numbering_synced": true,
+    "dedup_clean": true,
+    "sources_verified": false,
+    "no_fabrication": true
+  }
+}
